@@ -4,7 +4,7 @@ import re
 import cv2
 from datetime import datetime
 
-from .prefs import file_dir, prefs_path, default_prefs
+from .prefs import file_dir, prefs_path
 from .image_downloading import download_image
 from .adjust_resolution import adjust_for_resolution
 
