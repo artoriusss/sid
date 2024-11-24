@@ -60,7 +60,7 @@ def adjust_coords(
         zoom: int,
         desired_width: int = 4000,
         desired_height: int = 3000,
-        print_info: bool = True
+        print_info: bool = False
     ) -> Tuple[float, float, float, float]:
     """
     Adjust the coordinates of the image to match the desired resolution.
@@ -136,8 +136,8 @@ def adjust_for_resolution(
         Tuple[Tuple[float, float], Tuple[float, float]]: The adjusted coordinates of the image.
     """
     (lat1, lon1), (lat2, lon2) = calculate_image_coords(center_lat, center_lon, width, height, zoom)
-    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height, print_info=True)
-    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height, print_info=False)
+    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
+    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
     top_left = lat1, lon1
     bottom_right = lat2, lon2
     return top_left, bottom_right

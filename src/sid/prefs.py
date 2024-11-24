@@ -9,7 +9,7 @@ def get_user_preferences():
         dict: A dictionary containing the user preferences.
     """
     default_values = {
-        'zoom': {'name': 'zoom level', 'value': 21},
+        'zoom': {'name': 'zoom level', 'value': 19},
         'width': {'name': 'image width', 'value': 4000},
         'height': {'name': 'image height', 'value': 3000},
     }
