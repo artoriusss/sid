@@ -119,8 +119,8 @@ def adjust_for_resolution(
         center_lat: float, 
         center_lon: float, 
         zoom: int, 
-        width: int=4000, 
-        height: int=3000
+        width: int, 
+        height: int
         ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
     """
     Adjust the coordinates of the image to match the desired resolution.

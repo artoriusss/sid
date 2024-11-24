@@ -1,10 +1,10 @@
 [project]
-name = "sid"
-version = "0.0.1"
+name = "pysatimage"
+version = "0.0.11"
 authors = [
   { name="Artur Shevtsov", email="artorius.ua@gmail.com" },
 ]
-description = "sid: satelite imagery downloader"
+description = "SID: satellite imagery downloader"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -12,6 +12,16 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+
+dependencies = [
+    "requests>=2.32.3",
+    "numpy>=2.0.0",
+    "opencv-python>=4.8.0"
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project.urls]
 Homepage = "https://github.com/artoriusss/sid"
