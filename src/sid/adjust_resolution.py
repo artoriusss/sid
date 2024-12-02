@@ -1,28 +1,24 @@
-import math 
+import math
 from typing import Tuple
 
-from .image_downloading import image_size  
+from .image_downloading import image_size
 
 def calculate_image_coords(
-        lat: float, 
-        lon: float, 
-        w: int, 
-        h: int, 
+        lat: float,
+        lon: float,
+        w: int,
+        h: int,
         z: int
     ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
-    """
-    Calculate the coordinates of the top left and bottom right corners of an image.
+    """Calculate the coordinates of the top left and bottom right corners of an image.
 
-    Args:
-        lat (float): The latitude of the center point.
-        lon (float): The longitude of the center point.
-        w (int): The width of the image.
-        h (int): The height of the image.
-        z (int): The zoom level of the image.
+    :param lat: The latitude of the center point.
+    :param lon: The longitude of the center point.
+    :param w: The width of the image.
+    :param h: The height of the image.
+    :param z: The zoom level of the image.
 
-    Returns:
-        Tuple[Tuple[float, float], Tuple[float, float]]: The coordinates of the top left and bottom right
-            corners of the image.
+    :return: The coordinates of the top left and bottom right corners of the image.
     """
     R = (256 * 2**z) / 360
     delta_lon, delta_lat = w / R, h / R
@@ -36,12 +32,12 @@ def center(lat1: float, lon1: float, lat2: float, lon2: float) -> Tuple[float, f
     return (lat1 + lat2) / 2, (lon1 + lon2) / 2
 
 def distance(
-        origin: Tuple[float, float], 
+        origin: Tuple[float, float],
         destination: Tuple[float, float]
         ) -> float:
     lat1, lon1 = origin
     lat2, lon2 = destination
-    radius = 6371 
+    radius = 6371
 
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
@@ -61,27 +57,23 @@ def adjust_coords(
         desired_width: int = 4000,
         desired_height: int = 3000,
         print_info: bool = False
-    ) -> Tuple[float, float, float, float]:
-    """
-    Adjust the coordinates of the image to match the desired resolution.
+    ) -> Tuple[float, float, float, float, Tuple[float, float]]:
+    """Adjust the coordinates of the image to match the desired resolution.
 
-    Args:
-        lat1 (float): The latitude of the top left corner.
-        lon1 (float): The longitude of the top left corner.
-        lat2 (float): The latitude of the bottom right corner.
-        lon2 (float): The longitude of the bottom right corner.
-        zoom (int): The zoom level of the image.
-        desired_width (int): The desired width of the image.
-        desired_height (int): The desired height of the image.
-        print_info (bool): Whether to print information about the adjustment.
+    :param lat1: The latitude of the top left corner.
+    :param lon1: The longitude of the top left corner.
+    :param lat2: The latitude of the bottom right corner.
+    :param lon2: The longitude of the bottom right corner.
+    :param zoom: The zoom level of the image.
+    :param desired_width: The desired width of the image.
+    :param desired_height: The desired height of the image.
+    :param print_info: Whether to print information about the adjustment.
 
-    Returns:
-        Tuple[float, float, float, float]: The adjusted coordinates of the image.
-
+    :return: The adjusted coordinates of the image.
     """
     init_center = center(lat1, lon1, lat2, lon2)
-    tolerance = 0.1   
-    adjustment_step = 0.001  
+    tolerance = 0.1
+    adjustment_step = 0.001
     cnt = 0
     max_iterations = 10**5
 
@@ -92,12 +84,12 @@ def adjust_coords(
             break
 
         if height < desired_height:
-            lat1 = min(lat1 + adjustment_step, 90)  
+            lat1 = min(lat1 + adjustment_step, 90)
         else:
             lat1 = max(lat1 - adjustment_step, -90)
 
         if width < desired_width:
-            lon2 = min(lon2 + adjustment_step, 180)  
+            lon2 = min(lon2 + adjustment_step, 180)
         else:
             lon2 = max(lon2 - adjustment_step, -180)
 
@@ -113,31 +105,28 @@ def adjust_coords(
     if print_info:
         print(f"Center distorted by {delta:.2f} km due to resolution adjustment.")
 
-    return lat1, lon1, lat2, lon2
+    return lat1, lon1, lat2, lon2, adjusted_center
 
 def adjust_for_resolution(
-        center_lat: float, 
-        center_lon: float, 
-        zoom: int, 
-        width: int, 
+        center_lat: float,
+        center_lon: float,
+        zoom: int,
+        width: int,
         height: int
-        ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
-    """
-    Adjust the coordinates of the image to match the desired resolution.
+        ) -> Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]]:
+    """Adjust the coordinates of the image to match the desired resolution.
 
-    Args:
-        center_lat (float): The latitude of the center point.
-        center_lon (float): The longitude of the center point.
-        zoom (int): The zoom level of the image.
-        width (int): The desired width of the image.
-        height (int): The desired height of the image.
+    :param center_lat: The latitude of the center point.
+    :param center_lon: The longitude of the center point.
+    :param zoom: The zoom level of the image.
+    :param width: The width of the image.
+    :param height: The height of the image.
 
-    Returns:
-        Tuple[Tuple[float, float], Tuple[float, float]]: The adjusted coordinates of the image.
+    :return: The adjusted coordinates of the image.
     """
     (lat1, lon1), (lat2, lon2) = calculate_image_coords(center_lat, center_lon, width, height, zoom)
-    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
-    lat1, lon1, lat2, lon2 = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
+    lat1, lon1, lat2, lon2, _ = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
+    lat1, lon1, lat2, lon2, center_adj = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
     top_left = lat1, lon1
     bottom_right = lat2, lon2
-    return top_left, bottom_right
+    return top_left, bottom_right, center_adj
