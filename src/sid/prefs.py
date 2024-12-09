@@ -1,12 +1,12 @@
 import os
 import json
+from typing import Dict
 
-def get_user_preferences():
+def get_user_preferences() -> Dict[str, int]:
     """
     Prompt the user to enter the desired zoom level, image width, and image height,
     or use the default values.
-    Returns:
-        dict: A dictionary containing the user preferences.
+        :return: A dictionary containing the user preferences for zoom level, image width, and image height.
     """
     default_values = {
         'zoom': {'name': 'zoom level', 'value': 19},
@@ -32,9 +32,9 @@ def get_user_preferences():
     return preferences
 
 project_dir = os.getcwd()
-config_dir = os.path.join(project_dir, '.config')
-prefs_path = os.path.join(config_dir, 'sid_preferences.json')
-image_dir = os.path.join(project_dir, 'sid_images')
+config_dir = os.path.join(project_dir, '.sid')
+prefs_path = os.path.join(config_dir, 'preferences.json')
+image_dir = os.path.join(project_dir, 'satellite_images')
 
 for directory in [config_dir, image_dir]:
     if not os.path.exists(directory):

@@ -18,14 +18,14 @@ def fetch_image(
         ) -> Tuple[str, Tuple[float, float]]:
     """Fetches an image from the specified center point.
 
-    :param center_lat: latitude of the center point.
-    :param center_lon: longitude of the center point.
-    :param zoom: zoom level of the image (if not specified, the default from preferences file is used).
-    :param width: width of the image.
-    :param height: height of the image.
-    :param print_info: whether to print information about the image.
+        :param center_lat: latitude of the center point.
+        :param center_lon: longitude of the center point.
+        :param zoom: zoom level of the image (if not specified, the default from preferences file is used).
+        :param width: width of the image.
+        :param height: height of the image.
+        :param print_info: whether to print information about the image.
 
-    :return: name of the image file and adjusted center coordinates.
+        :return: name of the image file and adjusted center coordinates.
     """
     top_left, bottom_right, center_adj  = adjust_for_resolution(center_lat, center_lon, zoom, width, height)
     lat1, lon1 = top_left
