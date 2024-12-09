@@ -12,13 +12,13 @@ def calculate_image_coords(
     ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
     """Calculate the coordinates of the top left and bottom right corners of an image.
 
-    :param lat: The latitude of the center point.
-    :param lon: The longitude of the center point.
-    :param w: The width of the image.
-    :param h: The height of the image.
-    :param z: The zoom level of the image.
+        :param lat: The latitude of the center point.
+        :param lon: The longitude of the center point.
+        :param w: The width of the image.
+        :param h: The height of the image.
+        :param z: The zoom level of the image.
 
-    :return: The coordinates of the top left and bottom right corners of the image.
+        :return: The coordinates of the top left and bottom right corners of the image.
     """
     R = (256 * 2**z) / 360
     delta_lon, delta_lat = w / R, h / R
@@ -60,16 +60,16 @@ def adjust_coords(
     ) -> Tuple[float, float, float, float, Tuple[float, float]]:
     """Adjust the coordinates of the image to match the desired resolution.
 
-    :param lat1: The latitude of the top left corner.
-    :param lon1: The longitude of the top left corner.
-    :param lat2: The latitude of the bottom right corner.
-    :param lon2: The longitude of the bottom right corner.
-    :param zoom: The zoom level of the image.
-    :param desired_width: The desired width of the image.
-    :param desired_height: The desired height of the image.
-    :param print_info: Whether to print information about the adjustment.
+        :param lat1: The latitude of the top left corner.
+        :param lon1: The longitude of the top left corner.
+        :param lat2: The latitude of the bottom right corner.
+        :param lon2: The longitude of the bottom right corner.
+        :param zoom: The zoom level of the image.
+        :param desired_width: The desired width of the image.
+        :param desired_height: The desired height of the image.
+        :param print_info: Whether to print information about the adjustment.
 
-    :return: The adjusted coordinates of the image.
+        :return: The adjusted coordinates of the image.
     """
     init_center = center(lat1, lon1, lat2, lon2)
     tolerance = 0.1
@@ -116,13 +116,13 @@ def adjust_for_resolution(
         ) -> Tuple[Tuple[float, float], Tuple[float, float], Tuple[float, float]]:
     """Adjust the coordinates of the image to match the desired resolution.
 
-    :param center_lat: The latitude of the center point.
-    :param center_lon: The longitude of the center point.
-    :param zoom: The zoom level of the image.
-    :param width: The width of the image.
-    :param height: The height of the image.
+        :param center_lat: The latitude of the center point.
+        :param center_lon: The longitude of the center point.
+        :param zoom: The zoom level of the image.
+        :param width: The width of the image.
+        :param height: The height of the image.
 
-    :return: The adjusted coordinates of the image.
+        :return: The adjusted coordinates of the image.
     """
     (lat1, lon1), (lat2, lon2) = calculate_image_coords(center_lat, center_lon, width, height, zoom)
     lat1, lon1, lat2, lon2, _ = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
