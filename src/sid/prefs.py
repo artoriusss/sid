@@ -32,9 +32,9 @@ def get_user_preferences():
     return preferences
 
 project_dir = os.getcwd()
-config_dir = os.path.join(project_dir, '.config')
-prefs_path = os.path.join(config_dir, 'sid_preferences.json')
-image_dir = os.path.join(project_dir, 'sid_images')
+config_dir = os.path.join(project_dir, '.sid')
+prefs_path = os.path.join(config_dir, 'preferences.json')
+image_dir = os.path.join(project_dir, 'satellite_images')
 
 for directory in [config_dir, image_dir]:
     if not os.path.exists(directory):
