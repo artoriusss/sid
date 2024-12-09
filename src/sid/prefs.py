@@ -1,12 +1,12 @@
 import os
 import json
+from typing import Dict
 
-def get_user_preferences():
+def get_user_preferences() -> Dict[str, int]:
     """
     Prompt the user to enter the desired zoom level, image width, and image height,
     or use the default values.
-    Returns:
-        dict: A dictionary containing the user preferences.
+        :return: A dictionary containing the user preferences for zoom level, image width, and image height.
     """
     default_values = {
         'zoom': {'name': 'zoom level', 'value': 19},
