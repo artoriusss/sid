@@ -23,7 +23,7 @@ Within the very first run, you'll be asked to configure three parameters:
 
 If you ever need to change these, you can do so in `.sid/preferences.json`.
 
-After running the code, you can view your image(s) in `sid_images/`, which will be located in the root of your project.
+After running the code, you can view your image(s) in `satellite_images/`, which will be located in the root of your project.
 
 ![example1](images/example1.png)
 ![example2](images/example2.png)
