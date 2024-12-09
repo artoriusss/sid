@@ -1,10 +1,8 @@
 [project]
 name = "pysatimage"
-version = "0.0.12"
-authors = [
-  { name="Artur Shevtsov", email="artorius.ua@gmail.com" },
-]
-description = "SID: satellite imagery downloader"
+version = "0.0.13"
+authors = [{ name = "Artur Shevtsov", email = "artorius.ua@gmail.com" }]
+description = "SID: Satellite Imagery Downloader"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -13,11 +11,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
-dependencies = [
-    "requests>=2.32.3",
-    "numpy>=2.0.0",
-    "opencv-python>=4.8.0"
-]
+dependencies = ["requests>=2.32.3", "numpy>=2.0.0", "opencv-python>=4.8.0"]
 
 [build-system]
 requires = ["setuptools>=42", "wheel"]
