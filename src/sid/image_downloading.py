@@ -3,8 +3,10 @@ import requests
 import numpy as np
 import threading
 
+from .logger import logger
 
 def download_tile(url, headers, channels):
+    logger.info(f"Using URL: {url}")
     response = requests.get(url, headers=headers)
     arr =  np.asarray(bytearray(response.content), dtype=np.uint8)
 
