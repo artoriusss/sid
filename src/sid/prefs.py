@@ -65,6 +65,7 @@ prefs = {
             '(KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36'
         )
     },
+    'logging_level': 'WARNING',
     'tl': '',
     'br': '',
     'width': '',

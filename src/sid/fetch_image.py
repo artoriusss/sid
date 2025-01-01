@@ -6,6 +6,7 @@ from typing import Tuple
 from .prefs import prefs
 from .image_downloading import download_image
 from .adjust_resolution import adjust_for_resolution
+from .logger import logger
 
 
 def fetch_image(
@@ -13,8 +14,7 @@ def fetch_image(
         center_lon: float,
         zoom: int = prefs['zoom'],
         width: int = prefs['width'],
-        height: int = prefs['height'],
-        print_info: bool = False
+        height: int = prefs['height']
         ) -> Tuple[str, Tuple[float, float]]:
     """Fetches an image from the specified center point.
 
@@ -23,7 +23,6 @@ def fetch_image(
         :param zoom: zoom level of the image (if not specified, the default from preferences file is used).
         :param width: width of the image.
         :param height: height of the image.
-        :param print_info: whether to print information about the image.
 
         :return: name of the image file and adjusted center coordinates.
     """
@@ -41,6 +40,5 @@ def fetch_image(
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     name = f'img_{timestamp}.png'
     cv2.imwrite(os.path.join(prefs['dir'], name), img)
-    if print_info:
-        print(f'Saved as {name}')
+    logger.info(f'Saved as {name}')
     return name, center_adj

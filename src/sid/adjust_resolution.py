@@ -2,6 +2,7 @@ import math
 from typing import Tuple
 
 from .image_downloading import image_size
+from .logger import logger
 
 def calculate_image_coords(
         lat: float,
@@ -55,8 +56,7 @@ def adjust_coords(
         lon2: float,
         zoom: int,
         desired_width: int = 4000,
-        desired_height: int = 3000,
-        print_info: bool = False
+        desired_height: int = 3000
     ) -> Tuple[float, float, float, float, Tuple[float, float]]:
     """Adjust the coordinates of the image to match the desired resolution.
 
@@ -67,7 +67,6 @@ def adjust_coords(
         :param zoom: The zoom level of the image.
         :param desired_width: The desired width of the image.
         :param desired_height: The desired height of the image.
-        :param print_info: Whether to print information about the adjustment.
 
         :return: The adjusted coordinates of the image.
     """
@@ -97,13 +96,12 @@ def adjust_coords(
         adjustment_step = max(0.00001, adjustment_step * 0.99)
 
         if width > 10 * desired_width or height > 10 * desired_height:
-            print("Dimension explosion detected. Aborting adjustments.")
+            logger.error("Dimension explosion detected. Aborting adjustments.")
             break
 
     adjusted_center = center(lat1, lon1, lat2, lon2)
     delta = distance(init_center, adjusted_center)
-    if print_info:
-        print(f"Center distorted by {delta:.2f} km due to resolution adjustment.")
+    logger.info(f"Center distorted by {delta:.2f} km due to resolution adjustment.")
 
     return lat1, lon1, lat2, lon2, adjusted_center
 
@@ -125,7 +123,7 @@ def adjust_for_resolution(
         :return: The adjusted coordinates of the image.
     """
     (lat1, lon1), (lat2, lon2) = calculate_image_coords(center_lat, center_lon, width, height, zoom)
-    lat1, lon1, lat2, lon2, _ = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
+    lat1, lon1, lat2, lon2, _          = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
     lat1, lon1, lat2, lon2, center_adj = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
     top_left = lat1, lon1
     bottom_right = lat2, lon2
