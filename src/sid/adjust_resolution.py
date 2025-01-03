@@ -56,7 +56,8 @@ def adjust_coords(
         lon2: float,
         zoom: int,
         desired_width: int = 4000,
-        desired_height: int = 3000
+        desired_height: int = 3000,
+        log_info: bool = False
     ) -> Tuple[float, float, float, float, Tuple[float, float]]:
     """Adjust the coordinates of the image to match the desired resolution.
 
@@ -101,7 +102,8 @@ def adjust_coords(
 
     adjusted_center = center(lat1, lon1, lat2, lon2)
     delta = distance(init_center, adjusted_center)
-    logger.info(f"Center distorted by {delta:.2f} km due to resolution adjustment.")
+    if log_info:
+        logger.debug(f"Center distorted by {delta:.2f} km due to resolution adjustment.")
 
     return lat1, lon1, lat2, lon2, adjusted_center
 
@@ -123,7 +125,7 @@ def adjust_for_resolution(
         :return: The adjusted coordinates of the image.
     """
     (lat1, lon1), (lat2, lon2) = calculate_image_coords(center_lat, center_lon, width, height, zoom)
-    lat1, lon1, lat2, lon2, _          = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
+    lat1, lon1, lat2, lon2, _          = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height, log_info=True)
     lat1, lon1, lat2, lon2, center_adj = adjust_coords(lat1, lon1, lat2, lon2, zoom, width, height)
     top_left = lat1, lon1
     bottom_right = lat2, lon2
