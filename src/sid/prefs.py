@@ -32,11 +32,11 @@ def get_user_preferences() -> Dict[str, int]:
     return preferences
 
 project_dir = os.getcwd()
-config_dir = os.path.join(project_dir, '.sid')
-prefs_path = os.path.join(config_dir, 'preferences.json')
-image_dir = os.path.join(project_dir, 'satellite_images')
+inner_dir = os.path.join(project_dir, '.sid')
+prefs_path = os.path.join(inner_dir, 'preferences.json')
+image_dir = os.path.join(inner_dir, 'images')
 
-for directory in [config_dir, image_dir]:
+for directory in [inner_dir, image_dir]:
     if not os.path.exists(directory):
         try:
             os.makedirs(directory)
@@ -49,7 +49,11 @@ prefs = {
     'url': 'https://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
     'tile_size': 256,
     'channels': 3,
-    'dir': image_dir,
+    'images_dir': image_dir,
+    'multidownload': {
+        'entrypoint_path': "",
+        'concurrent_workers': 1,
+    },
     'headers': {
         'cache-control': 'max-age=0',
         'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"',

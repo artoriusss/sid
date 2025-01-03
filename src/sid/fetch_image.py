@@ -14,7 +14,8 @@ def fetch_image(
         center_lon: float,
         zoom: int = prefs['zoom'],
         width: int = prefs['width'],
-        height: int = prefs['height']
+        height: int = prefs['height'],
+        output_key: str = ""
         ) -> Tuple[str, Tuple[float, float]]:
     """Fetches an image from the specified center point.
 
@@ -37,8 +38,12 @@ def fetch_image(
                         prefs['tile_size'],
                         prefs['channels'])
 
+    if output_key:
+        cv2.imwrite(os.path.join(prefs['images_dir'], f"{output_key}.png"), img)
+        logger.debug(f'Saved as {output_key}.png')
+        return output_key, center_adj
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     name = f'img_{timestamp}.png'
-    cv2.imwrite(os.path.join(prefs['dir'], name), img)
-    logger.info(f'Saved as {name}')
+    cv2.imwrite(os.path.join(prefs['images_dir'], name), img)
+    logger.debug(f'Saved as {name}')
     return name, center_adj
