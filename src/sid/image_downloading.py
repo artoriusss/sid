@@ -6,7 +6,6 @@ import threading
 from .logger import logger
 
 def download_tile(url, headers, channels):
-    logger.info(f"Using URL: {url}")
     response = requests.get(url, headers=headers)
     arr =  np.asarray(bytearray(response.content), dtype=np.uint8)
 
@@ -40,6 +39,7 @@ def download_image(lat1: float, lon1: float, lat2: float, lon2: float,
         `tile_size` - Tile size in pixels
         `channels` - Number of channels in the output image. Also affects how the tiles are converted into numpy arrays.
     """
+    logger.debug(f"Using URL: {url}")
 
     scale = 1 << zoom
 

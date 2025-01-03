@@ -11,7 +11,7 @@ with open(prefs_path, 'r') as config_file:
 log_level_str = config.get('logging_level', DEFAULT_LOGGING_LEVEL)
 log_level = getattr(logging, log_level_str.upper(), logging.WARNING)
 
-logger = logging.getLogger('SID_logger')
+logger = logging.getLogger('SID')
 logger.setLevel(log_level)
 
 console_handler = logging.StreamHandler()
