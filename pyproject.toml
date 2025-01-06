@@ -1,6 +1,6 @@
 [project]
 name = "pysatimage"
-version = "0.0.15"
+version = "0.0.16"
 authors = [{ name = "Artur Shevtsov", email = "artorius.ua@gmail.com" }]
 description = "SID: Satellite Imagery Downloader"
 readme = "README.md"
@@ -16,6 +16,8 @@ dependencies = [
     "numpy>=2.0.0",
     "opencv-python>=4.8.0",
     "tqdm>=4.67.1",
+    "pyyaml>=6.0.2",
+    "setuptools>=75.7.0",
 ]
 
 [build-system]

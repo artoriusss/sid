@@ -9,9 +9,8 @@ def get_user_preferences() -> Dict[str, int]:
         :return: A dictionary containing the user preferences for zoom level, image width, and image height.
     """
     default_values = {
-        'zoom': {'name': 'zoom level', 'value': 19},
         'width': {'name': 'image width', 'value': 4000},
-        'height': {'name': 'image height', 'value': 3000},
+        'height': {'name': 'image height', 'value': 3000}
     }
     preferences = {}
     for key, default in default_values.items():
@@ -44,14 +43,24 @@ for directory in [inner_dir, image_dir]:
             print(f"Error creating directory {directory}: {e}")
             raise
 
-# Default preferences template
+apikeys_path = os.path.join(inner_dir, '.apikeys.yaml')
+if not os.path.isfile(apikeys_path):
+    with open(apikeys_path, 'w') as f:
+        f.write('')
+
 prefs = {
-    'url': 'https://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-    'tile_size': 256,
+    'providers': {
+        'GM': {
+            'url': 'https://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+            'zoom': 20,
+            'tile_size': 256,
+        },
+    },
     'channels': 3,
     'images_dir': image_dir,
     'multidownload': {
         'entrypoint_path': "",
+        'state_path': "",
         'concurrent_workers': 1,
     },
     'headers': {
@@ -73,8 +82,7 @@ prefs = {
     'tl': '',
     'br': '',
     'width': '',
-    'height': '',
-    'zoom': '',
+    'height': ''
 }
 
 if not os.path.isfile(prefs_path):

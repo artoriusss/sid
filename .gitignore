@@ -5,6 +5,7 @@ test/
 .vscode/
 preferences.json
 .DS_Store
+node_modules/
 
 # .gitignore from https://github.com/github/gitignore/blob/main/Python.gitignore
 
