@@ -1,6 +1,6 @@
 [project]
 name = "pysatimage"
-version = "0.0.16"
+version = "0.0.17"
 authors = [{ name = "Artur Shevtsov", email = "artorius.ua@gmail.com" }]
 description = "SID: Satellite Imagery Downloader"
 readme = "README.md"
