@@ -72,7 +72,7 @@ def adjust_coords(
         :return: The adjusted coordinates of the image.
     """
     init_center = center(lat1, lon1, lat2, lon2)
-    tolerance = 0.1
+    tolerance = 50
     adjustment_step = 0.001
     cnt = 0
     max_iterations = 10**5
